@@ -23,7 +23,7 @@ Stocky is a platform where users can earn shares of Indian stocks (e.g., Relianc
 
 - Node.js (v16 or higher)
 - MySQL (v8.0 or higher)
-- npm or yarn
+- npm
 
 ### Installation
 
@@ -79,164 +79,30 @@ http://localhost:5000/api
 
 Records a new stock reward for a user.
 
-**Request Body:**
-```json
-{
-  "userId": "550e8400-e29b-41d4-a716-446655440000",
-  "stockSymbol": "RELIANCE",
-  "quantity": 1.5,
-  "rewardType": "onboarding",
-  "eventTimestamp": "2024-01-15T10:30:00Z"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "Reward created successfully",
-  "data": {
-    "rewardId": "123e4567-e89b-12d3-a456-426614174000",
-    "userId": "550e8400-e29b-41d4-a716-446655440000",
-    "stockSymbol": "RELIANCE",
-    "quantity": 1.5,
-    "rewardType": "onboarding",
-    "eventTimestamp": "2024-01-15T10:30:00Z",
-    "fees": [
-      {
-        "accountType": "brokerage_fee",
-        "amount": 0.75,
-        "entryType": "credit"
-      }
-    ]
-  }
-}
-```
-
 #### 2. Get Today's Rewards
 **GET** `/today-stocks/{userId}`
 
 Returns all stock rewards for the user for today.
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "userId": "550e8400-e29b-41d4-a716-446655440000",
-    "date": "2024-01-15",
-    "rewards": [
-      {
-        "rewardId": "123e4567-e89b-12d3-a456-426614174000",
-        "stockSymbol": "RELIANCE",
-        "stockName": "Reliance Industries Limited",
-        "quantity": 1.5,
-        "rewardType": "onboarding",
-        "eventTimestamp": "2024-01-15T10:30:00Z"
-      }
-    ],
-    "totalRewards": 1
-  }
-}
-```
 
 #### 3. Get Historical INR Valuations
 **GET** `/historical-inr/{userId}`
 
 Returns the INR value of the user's stock rewards for all past days.
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "userId": "550e8400-e29b-41d4-a716-446655440000",
-    "valuations": [
-      {
-        "date": "2024-01-14",
-        "totalInrValue": 3750.00
-      },
-      {
-        "date": "2024-01-13",
-        "totalInrValue": 3600.00
-      }
-    ],
-    "totalDays": 2
-  }
-}
-```
 
 #### 4. Get User Statistics
 **GET** `/stats/{userId}`
 
 Returns comprehensive user statistics including today's rewards and current portfolio value.
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "userId": "550e8400-e29b-41d4-a716-446655440000",
-    "date": "2024-01-15",
-    "todayRewards": [
-      {
-        "stockSymbol": "RELIANCE",
-        "stockName": "Reliance Industries Limited",
-        "totalQuantity": 1.5
-      }
-    ],
-    "portfolio": {
-      "holdings": [
-        {
-          "stockSymbol": "RELIANCE",
-          "stockName": "Reliance Industries Limited",
-          "quantity": 2.5,
-          "currentPrice": 2500.00,
-          "currentValue": 6250.00
-        }
-      ],
-      "totalValue": 6250.00
-    }
-  }
-}
-```
 
 #### 5. Get User Portfolio (Bonus)
 **GET** `/portfolio/{userId}`
 
 Returns detailed portfolio holdings with current INR values.
 
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "userId": "550e8400-e29b-41d4-a716-446655440000",
-    "portfolio": [
-      {
-        "stockSymbol": "RELIANCE",
-        "stockName": "Reliance Industries Limited",
-        "quantity": 2.5,
-        "currentPrice": 2500.00,
-        "currentInrValue": 6250.00
-      }
-    ],
-    "totalValue": 6250.00
-  }
-}
-```
 
-## Database Schema
-
-### Core Tables
-
-1. **users** - User information
-2. **stock_symbols** - Master data for stock symbols
-3. **reward_events** - Individual reward transactions
-4. **ledger_entries** - Double-entry bookkeeping system
-5. **stock_prices** - Hourly stock price updates
-6. **user_holdings** - Denormalized user portfolio summary
-7. **historical_valuations** - Daily portfolio value snapshots
 
 ### Key Features
 
@@ -288,24 +154,8 @@ Returns detailed portfolio holdings with current INR values.
 - **Real-time Updates**: Live portfolio tracking
 - **Responsive Design**: Mobile-friendly interface
 
-### Security Features
-- **Input Validation**: Joi schema validation
-- **SQL Injection Prevention**: Parameterized queries
-- **Rate Limiting**: API abuse prevention
-- **CORS Protection**: Cross-origin security
-- **Helmet.js**: Security headers
 
 
-
-
-### Available Scripts
-```bash
-npm start              # Start backend server
-npm run dev            # Start both frontend and backend
-npm run client         # Start frontend only
-npm run build          # Build for production
-npm run install-all    # Install all dependencies
-```
 
 ## Production Deployment
 
